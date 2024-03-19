@@ -11,10 +11,12 @@ const server = net.createServer((socket) => {
     });
 
     socket.on('data', (data) => {
-        console.log('Getting data:', data)
+        console.log('Getting data:', data.toString())
+
         socket.write("HTTP/1.1 200 OK\r\n\r\n")
         socket.end()
     })
+
 });
 
 server.listen(4221, "localhost");

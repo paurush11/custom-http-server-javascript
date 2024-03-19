@@ -38,8 +38,16 @@ class Parser {
 
                 this.response["Content-Length"] = urlArray.slice(1).join("/").length;
                 this.response["Content"] = urlArray.slice(2).join("/");
-                console.log(urlArray.join("/"))
-                return `HTTP/1.1 200 OK\r\nContent-Type:${this.response["Content-Type"]}\r\nContent-Length:${this.response["Content-Length"]}\r\n\r\n${this.response["Content"]}`
+                const responseString = `HTTP/1.1 200 OK`;
+                responseString += `\r\n`
+                responseString += `Content-Type:${this.response["Content-Type"]}`
+                responseString += `\r\n`
+                responseString += `Content-Length:${this.response["Content-Length"]}`
+                responseString += `\r\n`
+                responseString += `\r\n`
+                responseString += `${this.response["Content"]}`
+                console.log(responseString);
+                return responseString;
             }
             return "HTTP/1.1 404 OK\r\n\r\n"
         }

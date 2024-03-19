@@ -32,12 +32,13 @@ class Parser {
         if (urlArray.length === 1 && this.url === '/') {
             return "HTTP/1.1 200 OK\r\n\r\n"
         } else {
-            console.log(urlArray[0].toUpperCase())
+
 
             if (urlArray[0].toUpperCase() === "ECHO") {
-                console.log("here")
+
                 this.response["Content-Length"] = urlArray.slice(1).join().length;
                 this.response["Content"] = urlArray.slice(2).join();
+                console.log(urlArray.slice(1).join())
                 return `HTTP/1.1 200 OK\r\nContent-Type:${this.response["Content-Type"]}\r\nContent-Length:${this.response["Content-Length"]}\r\n${this.response["Content"]}\r\n\r\n`
             }
             return "HTTP/1.1 404 OK\r\n\r\n"

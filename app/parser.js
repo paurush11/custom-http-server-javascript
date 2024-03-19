@@ -21,7 +21,7 @@ class Parser {
         if (this.url === '/') {
             return "HTTP/1.1 200 OK\r\n\r\n"
         } else {
-            return "HTTP/1.1 400 OK\r\n\r\n"
+            return "HTTP/1.1 404 OK\r\n\r\n"
         }
     }
 

@@ -44,17 +44,17 @@ class Parser {
             if (urlArray[0].toUpperCase() === "ECHO") {
                 this.response["Content-Length"] = urlArray.slice(1).join("/").length;
                 this.response["Content"] = urlArray.slice(1).join("/");
-                responseString += `\r\n`
-                responseString += `Content-Type: ${this.response["Content-Type"]}`
-                responseString += `\r\n`
-                responseString += `Content-Length: ${this.response["Content-Length"]}`
-                responseString += `\r\n`
-                responseString += `\r\n`
-                responseString += `${this.response["Content"]}`
+                // responseString += `\r\n`
+                // responseString += `Content-Type: ${this.response["Content-Type"]}`
+                // responseString += `\r\n`
+                // responseString += `Content-Length: ${this.response["Content-Length"]}`
+                // responseString += `\r\n`
+                // responseString += `\r\n`
+                // responseString += `${this.response["Content"]}`
 
-                console.log(this.response["Content"] === this.url.substring(6))
+                // console.log(this.response["Content"] === this.url.substring(6))
                 // console.log(responseString);
-                // this.createResponseString(responseString)
+                this.createResponseString(responseString)
                 return responseString;
             } else if (urlArray[0].toLowerCase() === "user-agent") {
                 this.response["Content"] = this.userAgent;

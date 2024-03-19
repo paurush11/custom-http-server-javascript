@@ -32,7 +32,6 @@ class Parser {
         responseString += `\r\n`
         responseString += `\r\n`
         responseString += `${this.response["Content"]}`
-        console.log(responseString);
         return responseString;
     }
 
@@ -44,7 +43,7 @@ class Parser {
             let responseString = `HTTP/1.1 200 OK`;
             if (urlArray[0].toUpperCase() === "ECHO") {
                 this.response["Content-Length"] = urlArray.slice(1).join("/").length;
-                this.response["Content"] = this.url.substring(6);
+                this.response["Content"] = urlArray.slice(1).join("/");
                 responseString += `\r\n`
                 responseString += `Content-Type: ${this.response["Content-Type"]}`
                 responseString += `\r\n`
@@ -60,7 +59,7 @@ class Parser {
             } else if (urlArray[0].toLowerCase() === "user-agent") {
                 this.response["Content"] = this.userAgent;
                 this.response["Content-Length"] = this.userAgent.length;
-                this.createResponseString(responseString)
+                // this.createResponseString(responseString)
                 return responseString;
 
             }

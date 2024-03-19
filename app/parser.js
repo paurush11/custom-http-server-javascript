@@ -17,9 +17,11 @@ class Parser {
     setUrl(url) {
         this.url = url;
     }
-
     setHttpType(type) {
         this.type = type;
+    }
+    setUserAgent(userAgent) {
+        this.userAgent = userAgent;
     }
 
     createResponseString(responseString) {
@@ -45,6 +47,11 @@ class Parser {
                 this.createResponseString()
                 return responseString;
             } else if (urlArray[0].toLowerCase() === "user-agent") {
+                this.response["Content"] = this.userAgent;
+                this.response["Content-Length"] = this.userAgent.length;
+                let responseString = `HTTP/1.1 200 OK`;
+                this.createResponseString()
+                return responseString;
 
             }
             return "HTTP/1.1 404 OK\r\n\r\n"
@@ -65,7 +72,8 @@ class Parser {
                 case "Host:":
                     break;
                 case "User-Agent:":
-                    console.log(valueArray)
+                    const userAgentReceived = valueArray[1]
+                    this.setUserAgent(userAgentReceived)
                     break;
                 case "Accept-Encoding:":
                     break;

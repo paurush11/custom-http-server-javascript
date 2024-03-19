@@ -32,6 +32,7 @@ class Parser {
         responseString += `\r\n`
         responseString += `\r\n`
         responseString += `${this.response["Content"]}`
+        console.log(responseString);
         return responseString;
     }
 
@@ -47,11 +48,12 @@ class Parser {
                 this.createResponseString()
                 return responseString;
             } else if (urlArray[0].toLowerCase() === "user-agent") {
+
                 this.response["Content"] = this.userAgent;
                 this.response["Content-Length"] = this.userAgent.length;
                 let responseString = `HTTP/1.1 200 OK`;
                 this.createResponseString()
-                console.log(responseString);
+
                 return responseString;
 
             }

@@ -29,8 +29,8 @@ class Parser {
             if (urlArray[0].toUpperCase() === "ECHO") {
                 this.response["Content-Length"] = urlArray.slice(1).join("/").length;
                 this.response["Content"] = urlArray.slice(2).join("/");
-                console.log(  this.response["Content-Length"])
-                console.log(  this.response["Content"])
+                console.log(this.response["Content-Length"])
+                console.log(this.response["Content"])
                 let responseString = `HTTP/1.1 200 OK`;
                 responseString += `\r\n`
                 responseString += `Content-Type: ${this.response["Content-Type"]}`
@@ -38,7 +38,7 @@ class Parser {
                 responseString += `Content-Length: ${this.response["Content-Length"]}`
                 responseString += `\r\n`
                 responseString += `\r\n`
-                responseString += `${this.response["Content"]}`
+                responseString += `${this.url.substring(6)}`
                 console.log(responseString);
                 return responseString;
             }

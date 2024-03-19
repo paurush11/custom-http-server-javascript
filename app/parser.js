@@ -24,11 +24,14 @@ class Parser {
     }
 
     sendResponse() {
-        const urlArray = this.url.split("/");
+        const urlArray = this.url.split("/").slice(1);
+
         console.log(urlArray)
 
-        if (this.url.length === 1 && this.url === '/') {
+        if (urlArray.length === 1 && this.url === '/') {
             return "HTTP/1.1 200 OK\r\n\r\n"
+        } else if (urlArray[1].toUpperCase() === "ECHO") {
+            this.response["Content-Length"] = urlArray.length
         }
 
 

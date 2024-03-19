@@ -27,7 +27,7 @@ class Parser {
     sendResponse() {
         const urlArray = this.url.split("/").slice(1);
 
-        console.log(urlArray)
+        console.log(urlArray[1].toUpperCase())
 
         if (urlArray.length === 1 && this.url === '/') {
             return "HTTP/1.1 200 OK\r\n\r\n"

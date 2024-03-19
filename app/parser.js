@@ -4,10 +4,16 @@ class Parser {
         this.data = "";
         this.url = "/"
         this.type = "HTTP/1.1"
+        this.response = {
+            "Content-Type": "text/plain",
+            "Content-Length": 3
+        }
     }
     setData(data) {
         this.data = data;
     }
+
+
 
     setUrl(url) {
         this.url = url;
@@ -18,9 +24,15 @@ class Parser {
     }
 
     sendResponse() {
-        if (this.url === '/') {
+        const urlArray = this.url.split("/");
+        console.log(urlArray)
+
+        if (this.url.length === 1 && this.url === '/') {
             return "HTTP/1.1 200 OK\r\n\r\n"
-        } else {
+        }
+
+
+        else {
             return "HTTP/1.1 404 OK\r\n\r\n"
         }
     }

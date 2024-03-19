@@ -53,7 +53,7 @@ class Parser {
                 // responseString += `${this.response["Content"]}`
 
                 // console.log(this.response["Content"] === this.url.substring(6))
-                // console.log(responseString);
+                console.log(responseString);
                 this.createResponseString(responseString)
                 return responseString;
             } else if (urlArray[0].toLowerCase() === "user-agent") {

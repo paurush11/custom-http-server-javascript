@@ -41,19 +41,16 @@ class Parser {
         if (urlArray.length === 1 && this.url === '/') {
             return "HTTP/1.1 200 OK\r\n\r\n"
         } else {
+            let responseString = `HTTP/1.1 200 OK`;
             if (urlArray[0].toUpperCase() === "ECHO") {
                 this.response["Content-Length"] = urlArray.slice(1).join("/").length;
                 this.response["Content"] = urlArray.slice(1).join("/");
-                let responseString = `HTTP/1.1 200 OK`;
-                this.createResponseString()
+                this.createResponseString(responseString)
                 return responseString;
             } else if (urlArray[0].toLowerCase() === "user-agent") {
-
                 this.response["Content"] = this.userAgent;
                 this.response["Content-Length"] = this.userAgent.length;
-                let responseString = `HTTP/1.1 200 OK`;
-                this.createResponseString()
-
+                this.createResponseString(responseString)
                 return responseString;
 
             }

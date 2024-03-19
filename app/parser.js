@@ -36,8 +36,8 @@ class Parser {
 
             if (urlArray[0].toUpperCase() === "ECHO") {
 
-                this.response["Content-Length"] = urlArray.slice(1).join().length;
-                this.response["Content"] = urlArray.slice(2).join();
+                this.response["Content-Length"] = urlArray.slice(1).join("/").length;
+                this.response["Content"] = urlArray.slice(2).join("/");
                 console.log(urlArray.join("/"))
                 return `HTTP/1.1 200 OK\r\nContent-Type:${this.response["Content-Type"]}\r\nContent-Length:${this.response["Content-Length"]}\r\n\r\n${this.response["Content"]}`
             }

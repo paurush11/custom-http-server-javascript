@@ -16,7 +16,7 @@ const server = net.createServer((socket) => {
         const parser = new Parser()
         parser.setData(data.toString())
         parser.parseInput()
-        socket.write("HTTP/1.1 200 OK\r\n\r\n")
+        socket.write(parser.sendResponse())
         socket.end()
     })
 

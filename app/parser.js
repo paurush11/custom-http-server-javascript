@@ -52,6 +52,8 @@ class Parser {
                 responseString += `\r\n`
                 responseString += `\r\n`
                 responseString += `${this.url.substring(6)}`
+
+                console.log(this.response["Content"] === this.url.substring(6))
                 // console.log(responseString);
                 // this.createResponseString(responseString)
                 return responseString;

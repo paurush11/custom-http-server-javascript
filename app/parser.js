@@ -31,7 +31,7 @@ class Parser {
         responseString += `Content-Length: ${this.response["Content-Length"]}`
         responseString += `\r\n`
         responseString += `\r\n`
-        responseString += `${this.url.substring(6)}`
+        responseString += `${this.response["Content"]}`
         console.log(responseString);
         return responseString;
     }
@@ -44,7 +44,7 @@ class Parser {
             let responseString = `HTTP/1.1 200 OK`;
             if (urlArray[0].toUpperCase() === "ECHO") {
                 this.response["Content-Length"] = urlArray.slice(1).join("/").length;
-                this.response["Content"] = urlArray.slice(1).join("/");
+                this.response["Content"] = this.url.substring(6);
                 this.createResponseString(responseString)
                 return responseString;
             } else if (urlArray[0].toLowerCase() === "user-agent") {

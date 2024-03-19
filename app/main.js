@@ -12,7 +12,6 @@ const server = net.createServer((socket) => {
     });
 
     socket.on('data', (data) => {
-        console.log('Getting data:', data.toString())
         const parser = new Parser()
         parser.setData(data.toString())
         parser.parseInput()

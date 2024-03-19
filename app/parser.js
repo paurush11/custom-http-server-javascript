@@ -13,9 +13,6 @@ class Parser {
     setData(data) {
         this.data = data;
     }
-
-
-
     setUrl(url) {
         this.url = url;
     }
@@ -26,25 +23,19 @@ class Parser {
 
     sendResponse() {
         const urlArray = this.url.split("/").slice(1);
-
-
-
         if (urlArray.length === 1 && this.url === '/') {
             return "HTTP/1.1 200 OK\r\n\r\n"
         } else {
-
-
             if (urlArray[0].toUpperCase() === "ECHO") {
-
                 this.response["Content-Length"] = urlArray.slice(1).join("/").length;
                 this.response["Content"] = urlArray.slice(2).join("/");
                 console.log(  this.response["Content-Length"])
                 console.log(  this.response["Content"])
                 let responseString = `HTTP/1.1 200 OK`;
                 responseString += `\r\n`
-                responseString += `Content-Type:${this.response["Content-Type"]}`
+                responseString += `Content-Type: ${this.response["Content-Type"]}`
                 responseString += `\r\n`
-                responseString += `Content-Length:${this.response["Content-Length"]}`
+                responseString += `Content-Length: ${this.response["Content-Length"]}`
                 responseString += `\r\n`
                 responseString += `\r\n`
                 responseString += `${this.response["Content"]}`

@@ -50,7 +50,7 @@ class Parser {
                 responseString += `Content-Length: ${this.response["Content-Length"]}`
                 responseString += `\r\n`
                 responseString += `\r\n`
-                responseString += `${this.url.substring(6)}`
+                responseString += `${this.response["Content"]}`
 
                 console.log(this.response["Content"] === this.url.substring(6))
                 // console.log(responseString);

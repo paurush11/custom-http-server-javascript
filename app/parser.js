@@ -9,6 +9,7 @@ class Parser {
             "Content-Length": 0,
             "Content": ""
         }
+        this.userAgent = ""
     }
     setData(data) {
         this.data = data;
@@ -21,6 +22,17 @@ class Parser {
         this.type = type;
     }
 
+    createResponseString(responseString) {
+        responseString += `\r\n`
+        responseString += `Content-Type: ${this.response["Content-Type"]}`
+        responseString += `\r\n`
+        responseString += `Content-Length: ${this.response["Content-Length"]}`
+        responseString += `\r\n`
+        responseString += `\r\n`
+        responseString += `${this.response["Content"]}`
+        return responseString;
+    }
+
     sendResponse() {
         const urlArray = this.url.split("/").slice(1);
         if (urlArray.length === 1 && this.url === '/') {
@@ -29,19 +41,11 @@ class Parser {
             if (urlArray[0].toUpperCase() === "ECHO") {
                 this.response["Content-Length"] = urlArray.slice(1).join("/").length;
                 this.response["Content"] = urlArray.slice(1).join("/");
-                console.log(this.response["Content-Length"])
-                console.log(this.response["Content"])
                 let responseString = `HTTP/1.1 200 OK`;
-                responseString += `\r\n`
-                responseString += `Content-Type: ${this.response["Content-Type"]}`
-                responseString += `\r\n`
-                responseString += `Content-Length: ${this.response["Content-Length"]}`
-                responseString += `\r\n`
-                responseString += `\r\n`
-                responseString += `${this.response["Content"]}`
-                console.log(responseString);
-
+                this.createResponseString()
                 return responseString;
+            } else if (urlArray[0].toLowerCase() === "user-agent") {
+
             }
             return "HTTP/1.1 404 OK\r\n\r\n"
         }
@@ -61,6 +65,7 @@ class Parser {
                 case "Host:":
                     break;
                 case "User-Agent:":
+                    console.log(valueArray)
                     break;
                 case "Accept-Encoding:":
                     break;

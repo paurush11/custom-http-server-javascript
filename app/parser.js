@@ -1,5 +1,5 @@
 class Parser {
-    constructor() {
+    constructor(directory) {
         this.commands = {};
         this.data = "";
         this.url = "/"
@@ -10,6 +10,7 @@ class Parser {
             "Content": ""
         }
         this.userAgent = ""
+        this.directory = directory
     }
     setData(data) {
         this.data = data;
@@ -44,24 +45,17 @@ class Parser {
             if (urlArray[0].toUpperCase() === "ECHO") {
                 this.response["Content-Length"] = urlArray.slice(1).join("/").length;
                 this.response["Content"] = urlArray.slice(1).join("/");
-                // responseString += `\r\n`
-                // responseString += `Content-Type: ${this.response["Content-Type"]}`
-                // responseString += `\r\n`
-                // responseString += `Content-Length: ${this.response["Content-Length"]}`
-                // responseString += `\r\n`
-                // responseString += `\r\n`
-                // responseString += `${this.response["Content"]}`
-
-                // console.log(this.response["Content"] === this.url.substring(6))
-               
                 responseString = this.createResponseString(responseString)
                 return responseString;
             } else if (urlArray[0].toLowerCase() === "user-agent") {
                 this.response["Content"] = this.userAgent;
                 this.response["Content-Length"] = this.userAgent.length;
-                responseString =  this.createResponseString(responseString)
+                responseString = this.createResponseString(responseString)
                 return responseString;
-
+            } else if (urlArray[0].toLowerCase() === "files") {
+                console.log(this.directory)
+                console.log(urlArray.slice(1).join("/"))
+                return responseString;
             }
             return "HTTP/1.1 404 OK\r\n\r\n"
         }

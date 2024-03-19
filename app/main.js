@@ -8,7 +8,8 @@ let directory = ""
 const server = net.createServer((socket) => {
 
     const args = process.argv.slice(2);
-    if(args.length() !== 0){
+    console.log(args)
+    if (args.length !== 0) {
         if (args.includes("--directory")) {
             const i = args.indexOf("--directory") + 1;
             directory = args[i];

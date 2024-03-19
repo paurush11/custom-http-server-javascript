@@ -51,6 +51,7 @@ class Parser {
                 this.response["Content-Length"] = this.userAgent.length;
                 let responseString = `HTTP/1.1 200 OK`;
                 this.createResponseString()
+                console.log(responseString);
                 return responseString;
 
             }

@@ -72,6 +72,7 @@ class Parser {
                     case "POST":
                         let responseStringPost = `HTTP/1.1 201 OK`;
                         responseStringPost = this.createResponseString(responseStringPost);
+                        fileUtil.writeFile(this.response.Content);
                         return responseStringPost;
                 }
 

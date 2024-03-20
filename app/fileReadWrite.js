@@ -12,6 +12,10 @@ class FileReadWrite {
     displayContents() {
         return fs.readFileSync(this.filePath);
     }
+
+    writeFile(data){
+        return fs.writeFileSync(this.filePath, data);
+    }
 }
 
 

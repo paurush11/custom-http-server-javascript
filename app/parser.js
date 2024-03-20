@@ -62,10 +62,10 @@ class Parser {
                     this.response["Content-Type"] = "application/octet-stream"
                     responseString = this.createResponseString(responseString)
                     return responseString;
-                }catch(e){
+                } catch (e) {
                     return "HTTP/1.1 404 Not Found\r\n\r\n";
                 }
-               
+
             }
             return "HTTP/1.1 404 OK\r\n\r\n"
         }
@@ -77,6 +77,7 @@ class Parser {
             let valueArray = arrayMessage[i].split(" ");
             switch (valueArray[0]) {
                 case "GET":
+                case "POST":
                     const urlReceived = valueArray[1]
                     const httpTypeReceived = valueArray[2];
                     this.setUrl(urlReceived)
@@ -90,6 +91,12 @@ class Parser {
                     break;
                 case "Accept-Encoding:":
                     break;
+                default:
+                    this.response.Content = valueArray.join(" ");
+                    console.log(this.response.Content.length)
+
+
+
             }
 
         }

@@ -56,8 +56,10 @@ class Parser {
                 return responseString;
             } else if (urlArray[0].toLowerCase() === "files") {
                 const fileUtil = new FileReadWrite(this.directory, urlArray.slice(1).join("/"));
-                const values = await fileUtil.displayContents();
-                console.log(values);
+                this.response["Content"] = fileUtil.displayContents();
+                this.response["Content-Length"] = this.response["Content"].length;
+                this.response["Content-Type"] = "application/octet-stream"
+                responseString = this.createResponseString(responseString)
                 return responseString;
             }
             return "HTTP/1.1 404 OK\r\n\r\n"

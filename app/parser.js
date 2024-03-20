@@ -55,8 +55,6 @@ class Parser {
                 responseString = this.createResponseString(responseString)
                 return responseString;
             } else if (urlArray[0].toLowerCase() === "files") {
-                console.log(this.directory)
-                console.log(urlArray.slice(1).join("/"))
                 const fileUtil = new FileReadWrite(this.directory, urlArray.slice(1).join("/"));
                 const values = fileUtil.displayContents();
                 console.log(values);

@@ -17,15 +17,17 @@ class FileReadWrite {
     checkIfFileExists() {
         this.filePath = path.join(this.directoryPath, this.fileName);
         fs.access(this.filePath, fs.constants.F_OK, (err) => {
-            if (err) this.exists = false;
+
+            if (err) {
+                console.log("here")
+                this.exists = false;
+            }
             else this.exists = true;
         })
     }
     displayContents() {
         this.checkIfFileExists();
-
         console.log(this.exists);
-
         return fs.readFileSync(this.filePath);
 
         if (this.exists) {

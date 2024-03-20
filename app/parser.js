@@ -13,6 +13,7 @@ class Parser {
         }
         this.userAgent = ""
         this.directory = directory
+        this.responseCode = 200
     }
     setContent(content, type) {
         this.response["Content"] = content;
@@ -49,7 +50,7 @@ class Parser {
         if (urlArray.length === 1 && this.url === '/') {
             return "HTTP/1.1 200 OK\r\n\r\n"
         } else {
-            let responseString = `HTTP/1.1 200 OK`;
+            let responseString = `${this.type} ${this.responseCode} OK`;
             if (urlArray[0].toUpperCase() === "ECHO") {
                 this.setContent(urlArray.slice(1).join("/"), "text/plain")
                 responseString = this.createResponseString(responseString)

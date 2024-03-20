@@ -7,29 +7,20 @@ class FileReadWrite {
         this.directoryPath = directoryPath;
         this.fileName = fileName
         this.exists = false
-    }
-    setDirectoryPath = (path) => {
-        this.directoryPath = path
-    }
-    setFileName = (name) => {
-        this.fileName = name
-    }
-    checkIfFileExists() {
         this.filePath = path.join(this.directoryPath, this.fileName);
-        fs.access(this.filePath, fs.constants.F_OK, (err) => {
-
-            if (err) {
-
-                this.exists = false;
-            }
-            else {
-                console.log("here")
-                this.exists = true;
-            }
-        })
     }
-    displayContents() {
-        this.checkIfFileExists();
+    async checkIfFileExists() {  
+        try {
+            await fs.access(this.filePath, fs.constants.F_OK);
+            this.exists = true;
+            console.log('File exists.');
+        } catch (err) {
+            this.exists = false;
+            console.log('File does not exist.');
+        }
+    }
+    async displayContents() {
+        await this.checkIfFileExists();
         console.log(this.exists);
         return fs.readFileSync(this.filePath);
 

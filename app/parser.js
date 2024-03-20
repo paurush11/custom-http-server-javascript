@@ -38,7 +38,7 @@ class Parser {
         return responseString;
     }
 
-    sendResponse() {
+   async sendResponse() {
         const urlArray = this.url.split("/").slice(1);
         if (urlArray.length === 1 && this.url === '/') {
             return "HTTP/1.1 200 OK\r\n\r\n"
@@ -56,7 +56,7 @@ class Parser {
                 return responseString;
             } else if (urlArray[0].toLowerCase() === "files") {
                 const fileUtil = new FileReadWrite(this.directory, urlArray.slice(1).join("/"));
-                const values = fileUtil.displayContents();
+                const values = await fileUtil.displayContents();
                 console.log(values);
                 return responseString;
             }

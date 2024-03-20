@@ -1,3 +1,5 @@
+const { FileReadWrite } = require("./fileReadWrite");
+
 class Parser {
     constructor(directory) {
         this.commands = {};
@@ -55,6 +57,9 @@ class Parser {
             } else if (urlArray[0].toLowerCase() === "files") {
                 console.log(this.directory)
                 console.log(urlArray.slice(1).join("/"))
+                const fileUtil = new FileReadWrite(this.directory, urlArray.slice(1).join("/"));
+                const values = fileUtil.displayContents();
+                console.log(values);
                 return responseString;
             }
             return "HTTP/1.1 404 OK\r\n\r\n"

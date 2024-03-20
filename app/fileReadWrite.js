@@ -19,10 +19,13 @@ class FileReadWrite {
         fs.access(this.filePath, fs.constants.F_OK, (err) => {
 
             if (err) {
-                console.log("here")
+
                 this.exists = false;
             }
-            else this.exists = true;
+            else {
+                console.log("here")
+                this.exists = true;
+            }
         })
     }
     displayContents() {

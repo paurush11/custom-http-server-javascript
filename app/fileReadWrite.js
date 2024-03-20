@@ -22,7 +22,8 @@ class FileReadWrite {
         })
     }
     displayContents() {
-        if (this.checkIfFileExists()) {
+        this.checkIfFileExists();
+        if (this.exists) {
             fs.readFile(this.filePath, 'utf-8', (data, err) => {
                 return data;
             })

@@ -9,7 +9,7 @@ class FileReadWrite {
         this.filePath = path.join(this.directoryPath, this.fileName);
     }
 
-    async displayContents() {      
+    displayContents() {
         return fs.readFileSync(this.filePath);
     }
 }

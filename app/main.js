@@ -20,11 +20,11 @@ const server = net.createServer((socket) => {
         server.close();
     });
 
-    socket.on('data', async (data) => {
+    socket.on('data', (data) => {
         const parser = new Parser(directory)
         parser.setData(data.toString())
         parser.parseInput()
-        socket.write(await parser.sendResponse())
+        socket.write(parser.sendResponse())
         socket.end()
     })
 

@@ -38,7 +38,7 @@ class Parser {
         return responseString;
     }
 
-   async sendResponse() {
+    sendResponse() {
         const urlArray = this.url.split("/").slice(1);
         if (urlArray.length === 1 && this.url === '/') {
             return "HTTP/1.1 200 OK\r\n\r\n"
@@ -56,11 +56,16 @@ class Parser {
                 return responseString;
             } else if (urlArray[0].toLowerCase() === "files") {
                 const fileUtil = new FileReadWrite(this.directory, urlArray.slice(1).join("/"));
-                this.response["Content"] = fileUtil.displayContents();
-                this.response["Content-Length"] = this.response["Content"].length;
-                this.response["Content-Type"] = "application/octet-stream"
-                responseString = this.createResponseString(responseString)
-                return responseString;
+                try {
+                    this.response["Content"] = fileUtil.displayContents();
+                    this.response["Content-Length"] = this.response["Content"].length;
+                    this.response["Content-Type"] = "application/octet-stream"
+                    responseString = this.createResponseString(responseString)
+                    return responseString;
+                }catch(e){
+                    return "HTTP/1.1 404 Not Found\r\n\r\n";
+                }
+               
             }
             return "HTTP/1.1 404 OK\r\n\r\n"
         }

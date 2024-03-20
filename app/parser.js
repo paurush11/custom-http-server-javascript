@@ -14,6 +14,11 @@ class Parser {
         this.userAgent = ""
         this.directory = directory
     }
+    setContent(content, type) {
+        this.response["Content"] = content;
+        this.response["Content-Length"] = content.length;
+        this.response["Content-Type"] = type;
+    }
     setData(data) {
         this.data = data;
     }
@@ -40,31 +45,38 @@ class Parser {
 
     sendResponse() {
         const urlArray = this.url.split("/").slice(1);
+        const messageType = this.data.split("\r\n").filter(ele => ele.length > 0)[0].split(" ")[0];
         if (urlArray.length === 1 && this.url === '/') {
             return "HTTP/1.1 200 OK\r\n\r\n"
         } else {
             let responseString = `HTTP/1.1 200 OK`;
             if (urlArray[0].toUpperCase() === "ECHO") {
-                this.response["Content-Length"] = urlArray.slice(1).join("/").length;
-                this.response["Content"] = urlArray.slice(1).join("/");
+                this.setContent(urlArray.slice(1).join("/"), "text/plain")
                 responseString = this.createResponseString(responseString)
                 return responseString;
             } else if (urlArray[0].toLowerCase() === "user-agent") {
-                this.response["Content"] = this.userAgent;
-                this.response["Content-Length"] = this.userAgent.length;
+                this.setContent(this.userAgent, "text/plain")
                 responseString = this.createResponseString(responseString)
                 return responseString;
             } else if (urlArray[0].toLowerCase() === "files") {
                 const fileUtil = new FileReadWrite(this.directory, urlArray.slice(1).join("/"));
-                try {
-                    this.response["Content"] = fileUtil.displayContents();
-                    this.response["Content-Length"] = this.response["Content"].length;
-                    this.response["Content-Type"] = "application/octet-stream"
-                    responseString = this.createResponseString(responseString)
-                    return responseString;
-                } catch (e) {
-                    return "HTTP/1.1 404 Not Found\r\n\r\n";
+                switch (messageType) {
+                    case "GET":
+                        try {
+                            this.setContent(fileUtil.displayContents(), "application/octet-stream")
+                            responseString = this.createResponseString(responseString)
+                            return responseString;
+                        } catch (e) {
+                            return "HTTP/1.1 404 Not Found\r\n\r\n";
+                        }
+                    case "POST":
+                        let responseStringPost = `HTTP/1.1 201 OK`;
+                        responseStringPost = this.createResponseString(responseStringPost);
+                        return responseStringPost;
                 }
+
+
+
 
             }
             return "HTTP/1.1 404 OK\r\n\r\n"

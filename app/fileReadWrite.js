@@ -23,6 +23,11 @@ class FileReadWrite {
     }
     displayContents() {
         this.checkIfFileExists();
+
+        console.log(this.exists);
+
+        return fs.readFileSync(this.filePath);
+
         if (this.exists) {
             fs.readFile(this.filePath, 'utf-8', (data, err) => {
                 return data;
